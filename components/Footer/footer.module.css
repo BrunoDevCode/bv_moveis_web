@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  background-color: var(--back-footer);
+  display: grid;
+  gap: 12px;
+  place-items: center;
+  padding: 8px 16px;
+  margin-top: 32px;
+}
+
+.container a {
+  color: white;
+  font-weight: 400;
+  font-size: 1.8rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container a .icons {
+  margin-right: 4px;
+}

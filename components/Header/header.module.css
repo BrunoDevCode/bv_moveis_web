@@ -1,0 +1,74 @@
+.container {
+  background-color: var(--back-header);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  grid-template-columns: 50% 40% 10%;
+  grid-template-areas: 
+    'title . menu'
+    '. . .'
+    'responsive responsive responsive'
+  ;
+  padding: 16px;
+  margin-bottom: 32px;
+  height: 100px;
+}
+
+.container .responsive_title {
+  grid-area: title;
+  color: white;
+  font-weight: 900;
+  font-size: 2.8rem;
+}
+
+.container .menu_bars {
+  grid-area: menu;
+}
+
+.menu_check {
+  display: none;
+}
+
+.menu_check:checked ~ .menu {
+  visibility: visible;
+  opacity: 1;
+}
+
+.menu {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100.5px;
+  left: 0;
+  grid-area: responsive;
+  background-color: var(--back-header);
+  width: 100%;
+}
+
+.menu h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.menu h1 .logoBV {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.menu a {
+  display: block;
+  border-bottom: .5px solid black;
+  padding: 16px 24px;
+  font-size: 2.3rem;
+  margin: 4px 0;
+  color: white;
+  font-weight: 300;
+}
+
+.menu a:last-child {
+  margin-bottom: 0;
+}
