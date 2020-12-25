@@ -5,14 +5,22 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ItemComponent, { Item } from '../components/Item';
 import Footer from '../components/Footer';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const Home: React.FC = ({ items }: InferGetStaticPropsType<typeof getStaticProps>) => {
+
+  useEffect(() => {
+    const hello = document.querySelector('#hello')
+    hello.classList.add('working')
+  }, [])
+
   return (
     <>
       <Header />
       <div className={styles.container}>
         <aside className={styles.banner_container}>
           Aqui vão as imagens que irão rotacionar
+          <p id='hello'>Hello dear</p>
         </aside>
 
         <main>
