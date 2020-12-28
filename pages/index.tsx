@@ -28,12 +28,14 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
     <>
       <Header />
 
-      <div id='slider' className={styles.slider}>
-        {images.map(image => {
-          return (
-            <img key={image._id} src={image.url} alt="" />
-          )
-        })}
+      <div className={styles.slider_container}>
+        <div id='slider' className={styles.slider}>
+          {images.map(image => {
+            return (
+              <img key={image._id} src={image.url} alt="" />
+            )
+          })}
+        </div>
       </div>
 
       <div className={styles.container}>
