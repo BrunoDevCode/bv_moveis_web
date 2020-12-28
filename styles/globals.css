@@ -50,3 +50,7 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(7, 117, 180);
 }
+
+img#selected {
+  opacity: 1;
+}
