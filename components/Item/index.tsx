@@ -32,7 +32,7 @@ const ItemComponent: React.FC<ItemProps> = ({ item }) => {
 
         <button type='button' className={styles.back_link}>
           <Link href={`/items/${item._id}`}>
-            <a>Confira mais</a>
+            <a>Detalhes</a>
           </Link>
         </button>
       </div>

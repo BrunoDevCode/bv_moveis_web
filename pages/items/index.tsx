@@ -23,7 +23,7 @@ const AllItems: React.FC = ({ allItems }: InferGetStaticPropsType<typeof getStat
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get('http://10.0.0.108:3333/items')
+  const { data } = await api.get('/items');
 
   return {
     props: {
