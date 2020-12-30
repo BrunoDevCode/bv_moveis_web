@@ -17,13 +17,13 @@ const Header: React.FC = () => {
           <div className={styles.logoBV}>
             <img src="/logo.jpg" alt="Logo BV Moveis" />
           </div>
-          <Link href='/admin/'>
+          <Link href='/'>
             <a id='bv_moveis_link'>BV Móveis</a>
           </Link>
         </h1>
 
-        <Link href='/'>
-          <a>Pagina Inicial</a>
+        <Link href='/' >
+          <a className={styles.responsive_homepage_link}>Pagina Inicial</a>
         </Link>
 
         <Link href='/items/'>

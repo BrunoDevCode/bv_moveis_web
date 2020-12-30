@@ -12,11 +12,13 @@
 }
 
 .slider {
-  width: 80%;
+  width: 90%;
   max-width: 500px;
-  height: 25vw;
-  max-height: 150px;
+  height: 32vw;
+  max-height: 200px;
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .slider img {
@@ -36,8 +38,15 @@
 
 .container main h2 {
   margin-left: 16px;
+  margin-bottom: 16px;
   text-transform: uppercase;
   color: #254E70;
+}
+
+.container main a.link {
+  margin: 16px;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 .items_container {
@@ -47,4 +56,33 @@
   display: grid;
   gap: 24px;
   grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .container {
+    max-width: 650px;
+  }
+
+  .slider {
+    max-width: 800px;
+    max-height: 380px;
+  }
+
+  .items_container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media(min-width: 1000px) {
+  .container {
+    max-width: 980px;
+  }
+
+  .slider {
+    max-width: 950px;
+  }
+
+  .items_container {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
