@@ -43,6 +43,7 @@
   grid-area: responsive;
   background-color: var(--back-header);
   width: 100%;
+  z-index: 99;
 }
 
 .menu h1 {
@@ -50,6 +51,7 @@
   justify-content: center;
   align-items: center;
   display: none;
+  flex-direction: center;
 }
 
 .menu h1 .logoBV {
@@ -69,6 +71,46 @@
   font-weight: 300;
 }
 
+.menu a:first-child {
+  margin-top: 0;
+}
+
 .menu a:last-child {
   margin-bottom: 0;
+}
+
+@media(min-width: 1000px) {
+  .container {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .responsive_title, .menu_bars {
+    display: none;
+  }
+
+  .menu {
+    visibility: visible;
+    opacity: 1;
+    top: 0;
+    background-color: transparent;
+    display: flex;
+    padding-left: 40px;
+  }
+
+  .menu h1 {
+    display: grid;
+    grid-template-columns: 30px 150px;
+    gap: 0;
+  }
+
+  .menu a {
+    border: none;
+    color: black;
+  }
+
+  .menu a.responsive_homepage_link {
+    display: none;
+  }
 }
