@@ -8,11 +8,14 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 
 const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  let time = 2000, currentImageIndex = 0;
+  let time = 4000, currentImageIndex = 0;
 
   useEffect(() => {
     const images = document.querySelectorAll('#slider img');
     const max = images.length;
+
+    images[0].setAttribute('id', 'selected');
+
     setInterval(() => {
       images[currentImageIndex].removeAttribute('id');
 
@@ -22,6 +25,8 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
 
       images[currentImageIndex].setAttribute('id', 'selected');
     }, time)
+
+    console.log('> Funcionando')
   }, [])
 
   return (
@@ -39,15 +44,11 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
       </div>
 
       <div className={styles.container}>
-        <aside className={styles.banner_container}>
-          Aqui vão as imagens que irão rotacionar
-        </aside>
-
         <main>
           <h2>Produtos em destaque</h2>
 
           <Link href='/items/'>
-            <a>Ver todos produtos</a>
+            <a className={styles.link}>Ver todos produtos</a>
           </Link>
 
           <ul className={styles.items_container}>
@@ -59,7 +60,7 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
           </ul>
 
           <Link href='/items/'>
-            <a>Ver todos produtos</a>
+            <a className={styles.link}>Ver todos produtos</a>
           </Link>
         </main>
       </div>
@@ -70,13 +71,12 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const items = await api.get('http://10.0.0.108:3333/items/homepage');
-  const images = await api.get('http://10.0.0.108:3333/homepage/images')
+  const {data} = await api.get('/homepage');
 
   return {
     props: {
-      items: items.data,
-      images: images.data
+      images: data.images,
+      items: data.items,
     }
   }
 }
