@@ -8,26 +8,21 @@ import styles from '../../styles/item.module.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { FaWhatsapp } from 'react-icons/fa';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-const ItemPage: React.FC = () => {
-  const { itemID } = useRouter().query;
-  const [item, setItem] = useState<Item>();
+const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   useEffect(() => {
-    api.get(`item/${itemID}`)
-      .then(({ data }) => {
-        setItem(data);
-        console.log(data)
-        console.log(item);
-      });
+    // const images = document.querySelectorAll('#slider img'), max = images.length;
 
-  }, [itemID]);
+    // console.log(images)
+  })
 
-  // const images = document.querySelectorAll('#slider img'), max = images.length;
-  // let currentImageIndex = 0;
+  console.log(item);
+
 
   function handleLeftImage() {
-    
+    console.log(item.images);
   }
 
   function handleRightImage() {
@@ -42,11 +37,12 @@ const ItemPage: React.FC = () => {
           <button onClick={handleLeftImage}>
             <FiChevronLeft size={24} color='white' />
           </button>
-          {/* {item.images.map((image) => {
+
+          {item.images.map((image) => {
             return (
-              <img src={image.url} />
+              <img key={image._id} src={image.url} />
             );
-          })} */}
+          })}
 
           <button onClick={handleRightImage}>
             <FiChevronRight size={24} color='white' />
@@ -65,6 +61,16 @@ const ItemPage: React.FC = () => {
       <Footer />
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { data } = await api.get(`item/${params.itemID}`);
+
+  return {
+    props: {
+      item: data
+    }
+  }
 }
 
 export default ItemPage;
