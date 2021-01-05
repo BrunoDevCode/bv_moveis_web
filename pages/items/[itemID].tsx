@@ -17,12 +17,14 @@ const ItemPage: React.FC = () => {
     api.get(`item/${itemID}`)
       .then(({ data }) => {
         setItem(data);
+        console.log(data)
+        console.log(item);
       });
 
   }, [itemID]);
 
-  const images = document.querySelectorAll('#slider img'), max = images.length;
-  let currentImageIndex = 0;
+  // const images = document.querySelectorAll('#slider img'), max = images.length;
+  // let currentImageIndex = 0;
 
   function handleLeftImage() {
     
@@ -40,19 +42,19 @@ const ItemPage: React.FC = () => {
           <button onClick={handleLeftImage}>
             <FiChevronLeft size={24} color='white' />
           </button>
-          {item.images.map((image) => {
+          {/* {item.images.map((image) => {
             return (
               <img src={image.url} />
             );
-          })}
+          })} */}
 
           <button onClick={handleRightImage}>
             <FiChevronRight size={24} color='white' />
           </button>
         </div>
       </div>
-      <h1>{item.title}</h1>
-      <p>{item.description}</p>
+      {/* <h1>{item.title}</h1>
+      <p>{item.description}</p> */}
 
       <p>Você tem algum projeto diferente, podemos dar uma olhada</p>
 
