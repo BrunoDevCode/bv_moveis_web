@@ -4,8 +4,14 @@
   display: grid;
   gap: 12px;
   place-items: center;
-  padding: 8px 16px;
+  padding: 16px 24px;
   margin-top: 32px;
+}
+
+.container p {
+  color: white;
+  font-weight: 300;
+  font-size: 1.8rem;
 }
 
 .container a {
