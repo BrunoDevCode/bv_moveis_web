@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  min-height: 60vh;
 }
 
 .slider_container {
