@@ -30,11 +30,9 @@ const ItemComponent: React.FC<ItemProps> = ({ item }) => {
         <strong className={styles.title}>{item.title}</strong>
         <p>{item.description}</p>
 
-        <button type='button' className={styles.back_link}>
-          <Link href={`/items/${item._id}`}>
-            <a>Detalhes</a>
-          </Link>
-        </button>
+        <Link href={`/items/${item._id}`}>
+          <a className={styles.button_link}>Detalhes</a>
+        </Link>
       </div>
     </li>
   );
