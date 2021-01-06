@@ -10,7 +10,11 @@ const AllItems: React.FC = ({ allItems }: InferGetStaticPropsType<typeof getStat
   return (
     <>
       <Header />
+
+      <h2 className={styles.title}>Confira todos nossos produtos !</h2>
+
       <ul className={styles.items_container}>
+
         {allItems.map((item: Item) => {
           return (
             <ItemComponent key={item._id} item={item} />
