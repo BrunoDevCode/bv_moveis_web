@@ -1,0 +1,41 @@
+.input_group {
+  padding: 4px;
+}
+
+.input_group label {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #999;
+}
+
+.input_group input {
+  padding: 8px;
+}
+
+.input_group textarea {
+  resize: none;
+  width: 100%;
+  height: 200px;
+  padding: 16px;
+  font-size: 2.5rem;
+}
+
+/* === Update Container === */
+
+.list_item_container, .update_item_container, .new_item_container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  gap: 4px;
+}
+
+.new_item_container form h2{
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* .update_item_container */
+
+/* === End Update Container === */

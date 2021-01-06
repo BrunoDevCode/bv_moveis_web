@@ -19,16 +19,15 @@ const Login: React.FC = () => {
       password,
     }
 
-    try {
-      const { data: { token } } = await api.post('/admin/login', data);
+    api.post('/admin/login', data)
+      .then(({ data: { token } }) => {
+        localStorage.setItem('token', token);
 
-      localStorage.setItem('token', token);
-
-      push('/admin/launchpage');
-    } catch (error) {
-      alert('Erro no login, por favor tente novamente');
-      console.log(error);
-    }
+        push('/admin/launchpage');
+      })
+      .catch(({ response: { data } }) => {
+        alert(data.Error);
+      })
   }
 
   return (
