@@ -11,16 +11,19 @@ const AllItems: React.FC = ({ allItems }: InferGetStaticPropsType<typeof getStat
     <>
       <Header />
 
-      <h2 className={styles.title}>Confira todos nossos produtos !</h2>
+      <div className={styles.container}>
+        <h2 className={styles.title}>Confira todos nossos produtos !</h2>
 
-      <ul className={styles.items_container}>
+        <ul className={styles.items_container}>
 
-        {allItems.map((item: Item) => {
-          return (
-            <ItemComponent key={item._id} item={item} />
-          )
-        })}
-      </ul>
+          {allItems.map((item: Item) => {
+            return (
+              <ItemComponent key={item._id} item={item} />
+            )
+          })}
+        </ul>
+      </div>
+
       <Footer />
     </>
   );

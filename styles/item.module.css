@@ -3,6 +3,7 @@
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - 230px);
 }
 
 .banner_container {

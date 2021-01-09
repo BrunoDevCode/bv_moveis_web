@@ -1,7 +1,10 @@
+.container {
+  min-height: calc(100vh - 230px);
+}
+
 .items_container {
   margin: 0 auto;
   padding: 8px;
-  min-height: 80vh;
   display: grid;
   gap: 24px;
   grid-template-columns: 1fr;
@@ -18,7 +21,7 @@
 @media (min-width: 700px) {
   .items_container {
     max-width: 650px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 }
@@ -26,6 +29,6 @@
 @media (min-width: 1000px) {
   .items_container {
     max-width: 980px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
