@@ -33,17 +33,18 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
     <>
       <Header />
 
-      <div className={styles.slider_container}>
-        <div id='slider' className={styles.slider}>
-          {images.map(image => {
-            return (
-              <img key={image._id} src={image.url} alt="" />
-            )
-          })}
-        </div>
-      </div>
-
       <div className={styles.container}>
+
+        {/* <div className={styles.slider_container}> */}
+          <div id='slider' className={styles.slider}>
+            {images.map(image => {
+              return (
+                <img key={image._id} src={image.url} alt="" />
+              )
+            })}
+          </div>
+        {/* </div> */}
+
         <main>
           <h2>Produtos em destaque</h2>
 
@@ -71,7 +72,7 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const {data} = await api.get('/homepage');
+  const { data } = await api.get('/homepage');
 
   return {
     props: {
