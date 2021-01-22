@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../../styles/login.module.css';
 
@@ -20,10 +21,13 @@ const Login: React.FC = () => {
     }
 
     api.post('/admin/login', data)
-      .then(({ data: { token } }) => {
-        localStorage.setItem('token', token);
-
-        push('/admin/launchpage');
+      .then(async ({ data: { token } }) => {
+        try {
+          await AsyncStorage.setItem('@token', token);
+          push('/admin/launchpage');
+        } catch(error) {
+          console.log(error);
+        }
       })
       .catch(({ response: { data } }) => {
         alert(data.Error);
