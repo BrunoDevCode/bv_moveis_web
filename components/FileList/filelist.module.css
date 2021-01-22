@@ -1,0 +1,47 @@
+.container {
+  margin-top: 20px;
+}
+
+.container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #444;
+  margin-top: 15px;
+}
+
+.fileinfo {
+  display: flex;
+  align-items: center;
+}
+
+.fileinfo div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileinfo strong {
+  font-size: 1.2rem;
+}
+
+.fileinfo div span {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.fileinfo div button {
+  border: 0;
+  background: transparent;
+  color: #E57878;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.preview {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  margin-right: 10px;
+  object-fit: cover;
+}
