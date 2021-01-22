@@ -19,7 +19,7 @@ const newItem: React.FC = () => {
 
   AsyncStorage.getItem('@token', (error, result) => {
     if (error) {
-      alert('Por favor faça login novamente');
+      // alert('Por favor faça login novamente');
 
       push('/admin');
     };
@@ -62,9 +62,7 @@ const newItem: React.FC = () => {
       Cookie.set('@itemID', data.itemID);
       setUploadFormDisplay('block');
       setNewItemDisplay('none');
-    }).catch((error) => {
-      alert('> Erro em criar novo produto');
-    });
+    })
   }
 
   return (
