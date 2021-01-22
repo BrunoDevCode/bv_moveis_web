@@ -1,108 +1,78 @@
 import { useRouter } from 'next/router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
-import Switch from 'react-switch';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { Item } from '../../components/Item';
+import { MdPowerSettingsNew } from 'react-icons/md';
+
+import { api } from '../../services/api';
 
 import styles from '../../styles/launchpage.module.css';
 
-const Launchpage: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [isAvailable, setIsAvailable] = useState(true);
-  const [isHomepage, setIsHomepage] = useState(false);
-
+const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { push } = useRouter();
 
-  // const userID = localStorage.getItem('token');
+  AsyncStorage.getItem('@token', (error, result) => {
+    if (error) {
+      alert('Por favor faça login novamente!');
 
-  // if (!userID) push('/');
-
-  function handleToogleIsHomepage() {
-    isHomepage === true ? setIsHomepage(false) : setIsHomepage(true);
-  }
-
-  function handleToogleIsAvailable() {
-    isAvailable === true ? setIsAvailable(false) : setIsAvailable(true);
-  }
-
-  function handleCreateItem(e: FormEvent) {
-    e.preventDefault();
-
-    const data = {
-      title,
-      description,
-      isAvailable,
-      isHomepage,
+      push('/admin');
     }
+  });
 
-    console.log(data);
+  function handleMakeLoggof() {
+    AsyncStorage.removeItem('@token');
+    push('/') ;
   }
 
   return (
-    <div className={styles.container}>
-      <details className={styles.list_item_list}>
-        <summary>Listar dos produtos</summary>
-      </details>
+    <>
+      <header className={styles.header}>
+        <Link href="/admin/new-item">
+          <a>Criar novo produto</a>
+        </Link>
+        <button
+          className={styles.button_loggof}
+          onClick={handleMakeLoggof}
+        >
+          <MdPowerSettingsNew size={24} color='#E57878' />
+        </button>
+      </header>
 
-      <details className={styles.new_item_container}>
-        <summary>Criar Novo Produto</summary>
+      <div className={styles.container}>
+        <ul className={styles.item_container}>
+          {items.map((item: Item) => (
+            <li className={styles.item} key={item._id}>
+              <div className={styles.item_image}>
+                <img src={item.images[0] ? item.images[0].url : '/noImage.jpg'} alt="" />
+              </div>
 
-        <form className={styles.form_new}>
-          <div className={styles.input_group}>
-            <label htmlFor="title">Título :</label>
-            <input type="text" id='title' value={title} onChange={e => setTitle(e.target.value)} />
-          </div>
+              <div className={styles.item_content}>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
 
-          <div className={styles.input_group}>
-            <label htmlFor="description">Descrição do produto :</label>
-            <textarea id="description" value={description} onChange={e => setDescription(e.target.value)}></textarea>
-          </div>
-
-          <div className={styles.isHomepage_container}>
-            <div className={styles.isHomepage}>
-              <label htmlFor="isHomepage">Ficara vísivel na pagina Inicial ?</label>
-              <Switch
-                checked={isHomepage}
-                onChange={handleToogleIsHomepage}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                height={20}
-                width={40}
-                handleDiameter={20}
-                onColor='#4C191B'
-              />
-            </div>
-
-            <span>Lembrando que se ja houver 6 produtos, pode ser que este não apareça</span>
-          </div>
-
-          <div className={styles.isAvailable}>
-            <label htmlFor="isAvailable">Há este produto no estoque ?</label>
-            <Switch
-              checked={isAvailable}
-              onChange={handleToogleIsAvailable}
-              checkedIcon={false}
-              uncheckedIcon={false}
-              height={20}
-              width={40}
-              handleDiameter={20}
-              onColor='#4C191B'
-            />
-          </div>
-
-          <button onClick={handleCreateItem} className={styles.submit_form}>Criar Produto</button>
-        </form>
-
-        <form className={styles.form_image_up}>
-
-        </form>
-      </details>
-
-      <div className={styles.delete_item_container}>
-
+              <div className={styles.buttons}>
+                <Link href={`/admin/${item._id}`}>
+                  <a>Modificar</a>
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await api.get('items');
+
+  return {
+    props: {
+      items: data
+    }
+  }
 }
 
 export default Launchpage;
