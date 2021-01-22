@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;900&display=swap');
 
+@import 'react-circular-progressbar/dist/styles.css';
+
 :root {
   --back-color: #F0F0F5;
   --back-header: #4C191B;
@@ -16,19 +18,20 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100vh;
+html, body, #root {
+  min-height: 100%;
 }
 
 body {
   background-color: var(--back-color);
   display: flex;
   flex-direction: column;
-  min-height: 100%;
 }
 
 body, input, button {
   font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
