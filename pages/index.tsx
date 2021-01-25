@@ -15,17 +15,23 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
     const images = document.querySelectorAll('#slider img');
     const max = images.length;
 
-    images[0].setAttribute('id', 'selected');
+    if (max > 0) {
+      start();
+    }
 
-    setInterval(() => {
-      images[currentImageIndex].removeAttribute('id');
+    function start() {
+      images[0].setAttribute('id', 'selected');
 
-      currentImageIndex++;
+      setInterval(() => {
+        images[currentImageIndex].removeAttribute('id');
 
-      if (currentImageIndex >= max) currentImageIndex = 0;
+        currentImageIndex++;
 
-      images[currentImageIndex].setAttribute('id', 'selected');
-    }, time);
+        if (currentImageIndex >= max) currentImageIndex = 0;
+
+        images[currentImageIndex].setAttribute('id', 'selected');
+      }, time);
+    }
 
   }, [])
 
