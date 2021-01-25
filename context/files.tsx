@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useState,
   useEffect,
@@ -8,7 +8,6 @@ import React, {
 import { v4 as uuidv4 } from 'uuid';
 import filesize from 'filesize';
 import Cookie from 'js-cookie';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { api } from '../services/api';
 
@@ -41,16 +40,7 @@ interface IFileContextData {
 const FileContext = createContext<IFileContextData>({} as IFileContextData);
 
 const FileProvider: React.FC = ({ children }) => {
-  let token: String;
-
-  AsyncStorage.getItem('@token', (error, result) => {
-    if (error) {
-      alert('Por favor faça login novamente');
-    }
-
-    token = result;
-  })
-
+  const token: any = Cookie.get('@token');
   const itemID = Cookie.get('@itemID');
 
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
@@ -89,7 +79,7 @@ const FileProvider: React.FC = ({ children }) => {
 
       if (uploadedFile.file) {
         data.append('file', uploadedFile.file, uploadedFile.name);
-        data.append('itemID', itemID);
+        data.append('itemID', itemID!);
       }
 
       api.post('admin/image/upload', data, {

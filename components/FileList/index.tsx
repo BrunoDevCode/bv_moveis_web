@@ -1,18 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Cookie from 'js-cookie';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { MdCheckCircle, MdError, MdLink, MdMoodBad } from 'react-icons/md';
 import { useFiles, IFile } from '../../context/files';
 
 import styles from './filelist.module.css';
 
-const FileList: React.FC = () => {
-  let token: string;
-
-  AsyncStorage.getItem('@token', (error, result) => {
-    if (error) alert('Por favor faça login novamente');
-
-    token = result;
-  })
+const FileList = () => {
+  const token: any = Cookie.get('@token');
 
   const { uploadedFiles: files, deleteFile } = useFiles();
 

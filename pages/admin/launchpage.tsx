@@ -1,28 +1,20 @@
 import { useRouter } from 'next/router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Link from 'next/link';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Item } from '../../components/Item';
 import { MdPowerSettingsNew } from 'react-icons/md';
+import Cookie from 'js-cookie';
 
 import { api } from '../../services/api';
 
 import styles from '../../styles/launchpage.module.css';
 
 const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { push } = useRouter();
+  const router = useRouter();
 
-  AsyncStorage.getItem('@token', (error, result) => {
-    if (error) {
-      alert('Por favor faça login novamente!');
-
-      push('/admin');
-    }
-  });
-
-  function handleMakeLoggof() {
-    AsyncStorage.removeItem('@token');
-    push('/') ;
+  async function handleMakeLoggof() {
+    Cookie.remove('@token');
+    router.push('/') ;
   }
 
   return (
@@ -44,7 +36,7 @@ const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getS
           {items.map((item: Item) => (
             <li className={styles.item} key={item._id}>
               <div className={styles.item_image}>
-                <img src={item.images[0] ? item.images[0].url : '/noImage.jpg'} alt="" />
+                <img src={item.images![0] ? item.images![0].url : '/noImage.jpg'} alt="" />
               </div>
 
               <div className={styles.item_content}>

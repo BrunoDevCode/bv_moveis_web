@@ -10,22 +10,12 @@ import { useRouter } from 'next/router';
 
 import FileList from '../../components/FileList';
 import Upload from "../../components/Upload";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BaseContext } from "next/dist/next-server/lib/utils";
 
 const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  let token: string;
+  const router = useRouter();
 
-  const { push } = useRouter();
-
-  AsyncStorage.getItem('@token', (error, result) => {
-    if (error) {
-      alert('Por favor faça login novamente!');
-
-      push('/admin');
-    }
-
-    token = result;
-  });
+  const token: any = Cookie.get('@token');
 
   Cookie.set('@itemID', item._id);
 
@@ -46,18 +36,16 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
     e.preventDefault();
 
     const data = {
-      name,
+      title,
       description,
       isAvailable,
       isHomepage,
     }
 
-    api.put(`/admin/${item._id}/update`, {
+    api.put(`/admin/${item._id}/update`, data, {
       headers: {
         authorization: token,
       }
-    }).then(() => {
-      alert('Produto alterado com sucesso');
     })
   }
 
@@ -69,7 +57,7 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
         authorization: token,
       }
     }).then(() => {
-      push('/admin/launchbase');
+      router.push('/admin/launchbase');
     });
   }
 
@@ -143,7 +131,7 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }: BaseContext) => {
   const { data } = await api.get(`item/${params.itemID}`);
   return {
     props: {

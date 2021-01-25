@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
 import Switch from 'react-switch';
@@ -13,19 +12,9 @@ import styles from '../../styles/new-item.module.css';
 import { api } from "../../services/api";
 
 const newItem: React.FC = () => {
-  let token: String;
+  const router = useRouter();
 
-  const { push } = useRouter();
-
-  AsyncStorage.getItem('@token', (error, result) => {
-    if (error) {
-      // alert('Por favor faça login novamente');
-
-      push('/admin');
-    };
-
-    token = result;
-  });
+  const token: any = Cookie.get('@token');
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

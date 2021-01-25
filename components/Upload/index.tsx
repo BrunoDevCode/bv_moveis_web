@@ -4,7 +4,7 @@ import { useFiles } from '../../context/files';
 
 import styles from './upload.module.css';
 
-const Upload: React.FC = () => {
+const Upload = () => {
   const { handleUpload } = useFiles();
 
   const onDrop = useCallback(

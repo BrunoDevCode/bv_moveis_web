@@ -3,11 +3,13 @@ import Head from 'next/head';
 import { api } from '../../services/api';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import type { IImage } from '../../context/files';
 
 import styles from '../../styles/item.module.css';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { FaWhatsapp } from 'react-icons/fa';
+import { BaseContext } from 'next/dist/next-server/lib/utils';
 
 const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   let currentImageIndex = 0;
@@ -62,7 +64,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
       <main className={styles.container}>
         <div className={styles.banner_container}>
           <div id='slider' className={styles.slider}>
-            {item.images.map((image) => {
+            {item.images.map((image: IImage) => {
               return (
                 <img key={image._id} src={image.url} />
               );
@@ -96,7 +98,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }: BaseContext) => {
   const { data } = await api.get(`item/${params.itemID}`);
 
   return {

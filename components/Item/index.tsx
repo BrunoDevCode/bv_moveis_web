@@ -22,7 +22,7 @@ const ItemComponent: React.FC<ItemProps> = ({ item }) => {
   return (
     <li className={styles.container}>
       <div className={styles.item_image_container}>
-        <img src={item.images[0] ? item.images[0].url : '/noImage.jpg'} alt="" />
+        <img src={item.images![0] ? item.images![0].url : '/noImage.jpg'} alt="" />
       </div>
 
       <div className={styles.item_content}>

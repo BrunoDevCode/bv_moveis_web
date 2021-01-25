@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Cookie from 'js-cookie';
 
 import styles from '../../styles/login.module.css';
 
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { push } = useRouter();
+  const router = useRouter();
 
   async function handleMakeLogin(e: FormEvent) {
     e.preventDefault();
@@ -23,8 +23,9 @@ const Login: React.FC = () => {
     api.post('/admin/login', data)
       .then(async ({ data: { token } }) => {
         try {
-          await AsyncStorage.setItem('@token', token);
-          push('/admin/launchpage');
+          // await AsyncStorage.setItem('@token', token);
+          Cookie.set('@token', token);
+          router.push('/admin/launchpage', undefined, { shallow: true });
         } catch(error) {
           console.log(error);
         }
