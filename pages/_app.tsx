@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>BV Móveis Rusticos</title>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <meta charSet='utf-8' />
         <meta name='robots' content='index, follow' />
         <meta name='keywords' content='BV Móveis, Móveis Rústicos, Mesas, Bancos, Armários, Madeira' />
