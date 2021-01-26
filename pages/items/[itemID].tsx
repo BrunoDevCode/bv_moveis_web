@@ -86,10 +86,10 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
           <h2>{item.title}</h2>
           <p className={styles.describe}>{item.description}</p>
 
-          <button className={styles.whats}>
-            <FaWhatsapp size={24} color='green' />
-            <p>Faça um orçamento</p>
-          </button>
+          <a target='_blank' className={styles.whats} href={`https://wa.me/+5531998499468`}>
+            <FaWhatsapp size={24} color='green' className={styles.icons} />
+            Whatsapp
+          </a>
         </div>
       </main>
 
