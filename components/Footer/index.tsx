@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         Instagram
       </a>
 
-      <a target='_blank' href={`https://wa.me/+5531998499468`}>
+      <a target='_blank' href={`https://wa.me/+5531995877646`}>
         <FaWhatsapp size={24} color='green' className={styles.icons} />
         Whatsapp
       </a>
