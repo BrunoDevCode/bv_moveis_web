@@ -2,13 +2,14 @@ import Cookie from 'js-cookie';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { MdCheckCircle, MdError, MdLink, MdMoodBad } from 'react-icons/md';
 import { useFiles, IFile } from '../../context/files';
+import Switch from 'react-switch';
 
 import styles from './filelist.module.css';
 
 const FileList = () => {
   const token: any = Cookie.get('@token');
 
-  const { uploadedFiles: files, deleteFile } = useFiles();
+  const { uploadedFiles: files, deleteFile, changingFile } = useFiles();
 
   if (!files.length) {
     return (
@@ -54,6 +55,19 @@ const FileList = () => {
                 strokeWidth={10}
                 text={String(uploadedFile.progress)}
                 value={uploadedFile.progress || 0}
+              />
+            )}
+
+            {uploadedFile.uploaded && (
+              <Switch 
+                checked={uploadedFile.isHomepage}
+                onChange={e => changingFile(uploadedFile.id, token, uploadedFile.isHomepage)}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                height={20}
+                width={40}
+                handleDiameter={20}
+                onColor='#4C191B'
               />
             )}
 
