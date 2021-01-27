@@ -71,22 +71,24 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
             })}
           </div>
 
-          <div className={styles.button_group}>
-            <button onClick={handleLeftImage}>
-              <FiChevronLeft size={28} color='green' />
-            </button>
+          {item.images.length > 1 && (
+            <div className={styles.button_group}>
+              <button onClick={handleLeftImage}>
+                <FiChevronLeft size={28} color='green' />
+              </button>
 
-            <button onClick={handleRightImage}>
-              <FiChevronRight size={28} color='green' />
-            </button>
-          </div>
+              <button onClick={handleRightImage}>
+                <FiChevronRight size={28} color='green' />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={styles.description}>
           <h2>{item.title}</h2>
           <p className={styles.describe}>{item.description}</p>
 
-          <a target='_blank' className={styles.whats} href={`https://wa.me/+5531998499468`}>
+          <a target='_blank' className={styles.whats} href={`https://wa.me/+5531995877646`}>
             <FaWhatsapp size={24} color='green' className={styles.icons} />
             Whatsapp
           </a>
