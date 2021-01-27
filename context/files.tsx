@@ -17,6 +17,7 @@ export interface IImage {
   size: number;
   key: string;
   url: string;
+  isHomepage: boolean;
 }
 
 export interface IFile {
@@ -29,12 +30,14 @@ export interface IFile {
   progress?: number;
   error?: boolean;
   url: string;
+  isHomepage: boolean;
 }
 
 interface IFileContextData {
   uploadedFiles: IFile[];
   deleteFile(id: string, token: string): void;
   handleUpload(file: any): void;
+  changingFile(imageID: string, token: string, data: any): void;
 }
 
 const FileContext = createContext<IFileContextData>({} as IFileContextData);
@@ -56,6 +59,7 @@ const FileProvider: React.FC = ({ children }) => {
           file: null,
           error: false,
           uploaded: true,
+          isHomepage: image.isHomepage,
         };
       });
 
@@ -122,6 +126,7 @@ const FileProvider: React.FC = ({ children }) => {
         uploaded: false,
         error: false,
         url: '',
+        isHomepage: false,
       }));
 
       setUploadedFiles(state => state.concat(newUploadedFiles));
@@ -135,8 +140,23 @@ const FileProvider: React.FC = ({ children }) => {
     setUploadedFiles(state => state.filter(file => file.id !== id));
   }, []);
 
+  const changingFile = useCallback(async (imageID: string, token: string, isHomepage: any) => {
+    console.log(isHomepage)
+    isHomepage = isHomepage === true ? false : true;
+    console.log(isHomepage)
+
+    const data = {
+      isHomepage,
+    }
+
+    const response = await api.put(`admin/image/update/${imageID}`, data, { headers: { Authorization: token, } });
+    updateFile(imageID, {
+      isHomepage: response.data.isHomepage
+    })
+  }, []);
+
   return (
-    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload }}>
+    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload, changingFile }}>
       {children}
     </FileContext.Provider>
   );
