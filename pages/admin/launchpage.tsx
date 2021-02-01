@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Item } from '../../components/Item';
 import { MdPowerSettingsNew } from 'react-icons/md';
@@ -14,11 +15,14 @@ const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getS
 
   async function handleMakeLoggof() {
     Cookie.remove('@token');
-    router.push('/') ;
+    router.push('/');
   }
 
   return (
     <>
+      <Head>
+        <meta name='robots' content='no' />
+      </Head>
       <header className={styles.header}>
         <Link href="/admin/new-item">
           <a>Criar novo produto</a>

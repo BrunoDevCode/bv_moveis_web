@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { IImage } from '../context/files';
+import Head from 'next/head';
 
 const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getStaticProps>) => {
   let time = 4000, currentImageIndex = 0;
@@ -37,6 +38,9 @@ const Home: React.FC = ({ items, images }: InferGetStaticPropsType<typeof getSta
 
   return (
     <>
+      <Head>
+        <meta name='robots' content='index, follow' />
+      </Head>
       <Header />
 
       <div className={styles.container}>
@@ -84,7 +88,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       images: data.images,
       items: data.items,
-    }
+    },
+    revalidate: 60
   }
 }
 

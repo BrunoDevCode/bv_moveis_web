@@ -5,6 +5,7 @@ import { api } from '../../services/api';
 import Cookie from 'js-cookie';
 
 import styles from '../../styles/login.module.css';
+import Head from 'next/head';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ const Login: React.FC = () => {
           // await AsyncStorage.setItem('@token', token);
           Cookie.set('@token', token);
           router.push('/admin/launchpage', undefined, { shallow: true });
-        } catch(error) {
+        } catch (error) {
           console.log(error);
         }
       })
@@ -37,6 +38,9 @@ const Login: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <meta name='robots' content='no' />
+      </Head>
       <header className={styles.header}>
         <div className={styles.logoBV}>
           <img src="/logo.jpg" alt="Logo BV Moveis" />

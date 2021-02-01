@@ -7,6 +7,7 @@ import styles from '../../styles/admin-item.module.css';
 import { FormEvent, useState } from "react";
 import { api } from "../../services/api";
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import FileList from '../../components/FileList';
 import Upload from "../../components/Upload";
@@ -63,6 +64,9 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
 
   return (
     <FileProvider>
+      <Head>
+        <meta name='robots' content='no' />
+      </Head>
       <div className={styles.container}>
         <header>
           <Link href='/admin/launchpage'>

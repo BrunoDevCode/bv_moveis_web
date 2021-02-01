@@ -10,6 +10,7 @@ import Link from "next/link";
 import styles from '../../styles/new-item.module.css';
 
 import { api } from "../../services/api";
+import Head from "next/head";
 
 const newItem: React.FC = () => {
   const router = useRouter();
@@ -56,6 +57,9 @@ const newItem: React.FC = () => {
 
   return (
     <FileProvider>
+      <Head>
+        <meta name='robots' content='no' />
+      </Head>
       <div className={styles.container}>
         <header>
           <Link href="/admin/launchpage">

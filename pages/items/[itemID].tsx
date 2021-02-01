@@ -29,10 +29,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
 
     currentImageIndex--;
 
-    if (currentImageIndex < 0)
-      currentImageIndex = max - 1;
-
-    console.log(currentImageIndex)
+    if (currentImageIndex < 0) currentImageIndex = max - 1;
 
     images[currentImageIndex].setAttribute('id', 'selected');
   }
@@ -44,10 +41,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
 
     currentImageIndex++;
 
-    if (currentImageIndex >= max)
-      currentImageIndex = 0;
-
-    console.log(currentImageIndex)
+    if (currentImageIndex >= max) currentImageIndex = 0;
 
     images[currentImageIndex].setAttribute('id', 'selected');
   }
@@ -57,6 +51,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
       <Head>
         <title>{item.title} - BV Móveis</title>
         <meta name='description' content={`${item.description} - BV Móveis`} />
+        <meta name='robots' content='index, follow' />
       </Head>
 
       <Header />

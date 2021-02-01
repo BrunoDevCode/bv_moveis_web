@@ -8,10 +8,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>BV Móveis Rusticos</title>
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <meta charSet='utf-8' />
         <meta name='robots' content='index, follow' />
-        <meta name='keywords' content='BV Móveis, Móveis Rústicos, Mesas, Bancos, Armários, Madeira' />
         <meta name='description' content='Venha conferir nossos móveis feitos de madeira rústica. Avaliamos seu projeto!!' />
         <meta httpEquiv="content-language" content="pt-br" />
         <link rel='icon' href='/favicon.ico' />
