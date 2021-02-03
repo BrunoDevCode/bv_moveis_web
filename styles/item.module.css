@@ -14,8 +14,8 @@
 .slider {
   width: 90%;
   max-width: 500px;
-  height: 40vw;
-  max-height: 200px;
+  height: 80vw;
+  max-height: 350px;
   position: relative;
   border-radius: 16px;
   overflow: hidden;
