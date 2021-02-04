@@ -77,6 +77,7 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
         </header>
 
         <form>
+          <p>Ao terminar de editar o produto, se não for alterar as imagens apenas retornar usando o botão acima</p>
           <div className={styles.input_group}>
             <label htmlFor="title">Título :</label>
             <input type="text" id='title' value={title} onChange={e => setTitle(e.target.value)} />
