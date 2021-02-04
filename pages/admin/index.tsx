@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
 import Cookie from 'js-cookie';
+import Alert from '../../components/Alert/alert';
 
 import styles from '../../styles/login.module.css';
 import Head from 'next/head';
@@ -23,16 +24,25 @@ const Login: React.FC = () => {
 
     api.post('/admin/login', data)
       .then(async ({ data: { token } }) => {
-        try {
-          // await AsyncStorage.setItem('@token', token);
-          Cookie.set('@token', token);
-          router.push('/admin/launchpage', undefined, { shallow: true });
-        } catch (error) {
-          console.log(error);
-        }
+        // try {
+        //   // await AsyncStorage.setItem('@token', token);
+        //   Cookie.set('@token', token);
+        //   router.push('/admin/launchpage', undefined, { shallow: true });
+        // } catch (error) {
+        //   console.log(error);
+        // }
+
+        return (
+          <Alert type='sucess' message='Login Executado com Sucesso' />
+        )
       })
-      .catch(({ response: { data } }) => {
-        alert(data.Error);
+      .catch(error => {
+        // <Alert type='error' message={data.message} />
+        // alert(error.response);
+        console.log(error);
+        console.log(error.response);
+        console.log(error.response.data);
+        console.log(error.response.message);
       })
   }
 
