@@ -86,7 +86,7 @@ const FileProvider: React.FC = ({ children }) => {
         data.append('itemID', itemID!);
       }
 
-      api.post('admin/image/upload', data, {
+      api.post(`admin/image/upload/${itemID}`, data, {
         headers: {
           authorization: token
         },
