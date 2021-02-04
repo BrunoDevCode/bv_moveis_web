@@ -16,9 +16,6 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
 
   useEffect(() => {
     const images = document.querySelectorAll('#slider img');
-
-    console.log(images);
-
     images[0].setAttribute('id', 'selected');
   });
 
@@ -61,7 +58,7 @@ const ItemPage: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServ
           <div id='slider' className={styles.slider}>
             {item.images.map((image: IImage) => {
               return (
-                <img key={image._id} id={image._id} src={image.url} />
+                <img key={image._id} src={image.url} />
               );
             })}
           </div>
