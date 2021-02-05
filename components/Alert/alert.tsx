@@ -8,6 +8,7 @@ interface IAlert {
 
 const Alert: React.FC<IAlert> = ({ type, message }) => {
   const renderAlertMessage = useCallback(() => {
+      console.log('> Aqui')
     if (type === "Sucess") {
       return (
         <p style={{ color: '#55C1FF', zIndex: 99 }}>{message}</p>

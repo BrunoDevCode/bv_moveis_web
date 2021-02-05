@@ -24,25 +24,23 @@ const Login: React.FC = () => {
 
     api.post('/admin/login', data)
       .then(async ({ data: { token } }) => {
-        // try {
-        //   // await AsyncStorage.setItem('@token', token);
-        //   Cookie.set('@token', token);
-        //   router.push('/admin/launchpage', undefined, { shallow: true });
-        // } catch (error) {
-        //   console.log(error);
-        // }
+        try {
+          Cookie.set('@token', token);
+          router.push('/admin/launchpage', undefined, { shallow: true });
+        } catch (error) {
+          console.log(error);
+        }
 
-        return (
-          <Alert type='sucess' message='Login Executado com Sucesso' />
-        )
+        // return (
+        //   <Alert type='sucess' message='Login Executado com Sucesso' />
+        // )
       })
       .catch(error => {
-        // <Alert type='error' message={data.message} />
-        // alert(error.response);
-        console.log(error);
-        console.log(error.response);
+        // return (
+        //     <Alert type='error' message={error.response.data} />
+        // )
+        alert(error.response.data);
         console.log(error.response.data);
-        console.log(error.response.message);
       })
   }
 
