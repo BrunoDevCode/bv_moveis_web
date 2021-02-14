@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
 import Cookie from 'js-cookie';
-import Alert from '../../components/Alert/alert';
 
 import styles from '../../styles/login.module.css';
 import Head from 'next/head';
@@ -24,21 +23,10 @@ const Login: React.FC = () => {
 
     api.post('/admin/login', data)
       .then(async ({ data: { token } }) => {
-        try {
-          Cookie.set('@token', token);
-          router.push('/admin/launchpage', undefined, { shallow: true });
-        } catch (error) {
-          console.log(error);
-        }
-
-        // return (
-        //   <Alert type='sucess' message='Login Executado com Sucesso' />
-        // )
+        Cookie.set('@token', token);
+        router.push('/admin/launchpage', undefined, { shallow: true });
       })
       .catch(error => {
-        // return (
-        //     <Alert type='error' message={error.response.data} />
-        // )
         alert(error.response.data);
         console.log(error.response.data);
       })
@@ -48,6 +36,7 @@ const Login: React.FC = () => {
     <>
       <Head>
         <meta name='robots' content='no' />
+        <title>Back Office - BV Móveis</title>
       </Head>
       <header className={styles.header}>
         <div className={styles.logoBV}>
