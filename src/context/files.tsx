@@ -3,7 +3,7 @@ import {
   useState,
   useEffect,
   useCallback,
-  useContext
+  useContext,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import filesize from 'filesize';
@@ -49,8 +49,8 @@ const FileProvider: React.FC = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
 
   useEffect(() => {
-    api.get<IImage[]>(`images/${itemID}`).then(res => {
-      const imageFormatted: IFile[] = res.data.map(image => {
+    api.get<IImage[]>(`images/${itemID}`).then((res) => {
+      const imageFormatted: IFile[] = res.data.map((image) => {
         return {
           ...image,
           id: image._id,
@@ -69,12 +69,14 @@ const FileProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     return () => {
-      uploadedFiles.forEach(file => URL.revokeObjectURL(file.preview));
+      uploadedFiles.forEach((file) => URL.revokeObjectURL(file.preview));
     };
   });
 
   const updateFile = useCallback((id, data) => {
-    setUploadedFiles(state => state.map(file => (file.id === id ? { ...file, ...data } : file)));
+    setUploadedFiles((state) =>
+      state.map((file) => (file.id === id ? { ...file, ...data } : file))
+    );
   }, []);
 
   const processUpload = useCallback(
@@ -86,30 +88,31 @@ const FileProvider: React.FC = ({ children }) => {
         data.append('itemID', itemID!);
       }
 
-      api.post(`admin/image/upload/${itemID}`, data, {
-        headers: {
-          authorization: token
-        },
-        onUploadProgress: progressEvent => {
-          let progress: number = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
+      api
+        .post(`admin/image`, data, {
+          headers: {
+            authorization: token,
+          },
+          onUploadProgress: (progressEvent) => {
+            let progress: number = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
 
-          updateFile(uploadedFile.id, { progress });
-        }
-      })
-        .then(res => {
+            updateFile(uploadedFile.id, { progress });
+          },
+        })
+        .then((res) => {
           updateFile(uploadedFile.id, {
             uploaded: true,
             id: res.data._id,
             url: res.data.url,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           updateFile(uploadedFile.id, {
             error: true,
-          })
-        })
+          });
+        });
     },
     [updateFile]
   );
@@ -129,34 +132,41 @@ const FileProvider: React.FC = ({ children }) => {
         isHomepage: false,
       }));
 
-      setUploadedFiles(state => state.concat(newUploadedFiles));
+      setUploadedFiles((state) => state.concat(newUploadedFiles));
       newUploadedFiles.forEach(processUpload);
     },
     [processUpload]
   );
 
   const deleteFile = useCallback((id: string, token: string) => {
-    api.delete(`/admin/image/delete/${id}`, { headers: { authorization: token } });
-    setUploadedFiles(state => state.filter(file => file.id !== id));
+    api.delete(`/admin/image/delete/${id}`, {
+      headers: { authorization: token },
+    });
+    setUploadedFiles((state) => state.filter((file) => file.id !== id));
   }, []);
 
-  const changingFile = useCallback(async (imageID: string, token: string, isHomepage: any) => {
-    console.log(isHomepage)
-    isHomepage = isHomepage === true ? false : true;
-    console.log(isHomepage)
+  const changingFile = useCallback(
+    async (imageID: string, token: string, isHomepage: any) => {
+      isHomepage = isHomepage === true ? false : true;
 
-    const data = {
-      isHomepage,
-    }
+      const data = {
+        isHomepage,
+      };
 
-    const response = await api.put(`admin/image/update/${imageID}`, data, { headers: { Authorization: token, } });
-    updateFile(imageID, {
-      isHomepage: response.data.isHomepage
-    })
-  }, []);
+      const response = await api.put(`admin/image/update/${imageID}`, data, {
+        headers: { Authorization: token },
+      });
+      updateFile(imageID, {
+        isHomepage: response.data.isHomepage,
+      });
+    },
+    []
+  );
 
   return (
-    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload, changingFile }}>
+    <FileContext.Provider
+      value={{ uploadedFiles, deleteFile, handleUpload, changingFile }}
+    >
       {children}
     </FileContext.Provider>
   );
