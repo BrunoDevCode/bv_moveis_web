@@ -28,7 +28,7 @@ const ItemPage: React.FC = ({
   function handleChangeImage(target: any) {
     const image = document.querySelector('#slider img#selected');
 
-    image.src = target.src;
+    image!.src = target.src;
 
     target.setAttribute('id', 'selected');
   }
