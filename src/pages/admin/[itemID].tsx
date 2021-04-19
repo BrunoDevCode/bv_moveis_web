@@ -1,19 +1,21 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import Switch from 'react-switch';
 import Cookie from 'js-cookie';
 import { FileProvider } from '../../context/files';
 import styles from '../../styles/admin-item.module.css';
-import { FormEvent, useState } from "react";
-import { api } from "../../services/api";
+import { FormEvent, useState } from 'react';
+import { api } from '../../services/api';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import FileList from '../../components/FileList';
-import Upload from "../../components/Upload";
-import { BaseContext } from "next/dist/next-server/lib/utils";
+import Upload from '../../components/Upload';
+import { BaseContext } from 'next/dist/next-server/lib/utils';
 
-const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ModifyItem: React.FC = ({
+  item,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
   const token: any = Cookie.get('@token');
@@ -41,56 +43,78 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
       description,
       isAvailable,
       isHomepage,
-    }
+    };
 
     api.put(`/admin/${item._id}/update`, data, {
       headers: {
         authorization: token,
-      }
-    })
+      },
+    });
   }
 
   function handleDeleteItem(e: FormEvent) {
     e.preventDefault();
 
-    api.delete(`/admin/item/delete/${item._id}`, {
-      headers: {
-        authorization: token,
-      }
-    }).then(() => {
-      router.push('/admin/launchbase');
-    });
+    api
+      .delete(`/admin/item/delete/${item._id}`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then(() => {
+        router.push('/admin/launchpage');
+      });
   }
 
   return (
     <FileProvider>
       <Head>
-        <meta name='robots' content='no' />
+        <meta name="robots" content="no" />
       </Head>
       <div className={styles.container}>
         <header>
-          <Link href='/admin/launchpage'>
-            <a onClick={() => { Cookie.remove('@itemID') }}>Voltar</a>
+          <Link href="/admin/launchpage">
+            <a
+              onClick={() => {
+                Cookie.remove('@itemID');
+              }}
+            >
+              Voltar
+            </a>
           </Link>
 
           <h1>{title}</h1>
         </header>
 
         <form>
-          <p>Ao terminar de editar o produto, se não for alterar as imagens apenas retornar usando o botão acima</p>
+          <p>
+            Ao terminar de editar o produto, se não for alterar as imagens
+            apenas retornar usando o botão acima
+          </p>
           <div className={styles.input_group}>
             <label htmlFor="title">Título :</label>
-            <input type="text" id='title' value={title} onChange={e => setTitle(e.target.value)} />
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </div>
 
           <div className={styles.input_group}>
             <label htmlFor="description">Descrição do produto :</label>
-            <textarea id="description" value={description} onChange={e => setDescription(e.target.value)}></textarea>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
           </div>
 
           <div className={styles.isHomepage_container}>
             <div className={styles.isHomepage}>
-              <label htmlFor="isHomepage">Ficara vísivel na pagina Inicial ?</label>
+              <label htmlFor="isHomepage">
+                Ficara vísivel na pagina Inicial ?
+              </label>
               <Switch
                 checked={isHomepage}
                 onChange={handleToogleIsHomepage}
@@ -99,11 +123,14 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
                 height={20}
                 width={40}
                 handleDiameter={20}
-                onColor='#4C191B'
+                onColor="#4C191B"
               />
             </div>
 
-            <span>Lembrando que se ja houver 6 produtos, pode ser que este não apareça</span>
+            <span>
+              Lembrando que se ja houver 6 produtos, pode ser que este não
+              apareça
+            </span>
           </div>
 
           <div className={styles.isAvailable}>
@@ -116,7 +143,7 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
               height={20}
               width={40}
               handleDiameter={20}
-              onColor='#4C191B'
+              onColor="#4C191B"
             />
           </div>
 
@@ -125,24 +152,36 @@ const ModifyItem: React.FC = ({ item }: InferGetServerSidePropsType<typeof getSe
             <FileList />
           </div>
 
-          <button type='button' className={styles.submit_form} onClick={handleDeleteItem}>
+          <button
+            type="button"
+            className={styles.submit_form}
+            onClick={handleDeleteItem}
+          >
             Excluir Item e suas imagens
           </button>
 
-          <button type='submit' onClick={handleModifyItem} className={styles.submit_form}>Modificar Produto</button>
+          <button
+            type="submit"
+            onClick={handleModifyItem}
+            className={styles.submit_form}
+          >
+            Modificar Produto
+          </button>
         </form>
       </div>
     </FileProvider>
   );
-}
+};
 
-export const getServerSideProps: GetServerSideProps = async ({ params }: BaseContext) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+}: BaseContext) => {
   const { data } = await api.get(`item/${params.itemID}`);
   return {
     props: {
-      item: data
-    }
+      item: data,
+    },
   };
-}
+};
 
 export default ModifyItem;
