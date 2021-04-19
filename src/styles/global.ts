@@ -62,7 +62,8 @@ export const GlobalStyle = createGlobalStyle`
   footer p {
     color: white;
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 16px;
+    line-height: 26px;
   }
 
   body,
