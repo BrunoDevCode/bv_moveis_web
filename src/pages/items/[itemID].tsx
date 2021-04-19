@@ -1,49 +1,36 @@
-import { useEffect } from "react";
-import Head from "next/head";
-import { api } from "../../services/api";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import type { IImage } from "../../context/files";
+import { useEffect } from 'react';
+import Head from 'next/head';
+import { api } from '../../services/api';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import type { IImage } from '../../context/files';
+import Header from '../../components/Header';
+import { BaseContext } from 'next/dist/next-server/lib/utils';
+import Image from 'next/image';
 
-import styles from "../../styles/item.module.css";
-import Header from "../../components/Header";
-import { FaWhatsapp } from "react-icons/fa";
-import { BaseContext } from "next/dist/next-server/lib/utils";
+// import styles from '../../styles/item.module.css';
+import {
+  Container,
+  BannerSlider,
+  BannerPreview,
+  Description,
+  Links,
+} from '../../styles/singleItem';
+import { GlobalContainer } from '../../styles/global';
 
 const ItemPage: React.FC = ({
   item,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  let currentImageIndex = 0;
-
   useEffect(() => {
-    const images = document.querySelectorAll("#slider img");
-    images[0].setAttribute("id", "selected");
+    const images = document.querySelectorAll('#slider img');
+    images[0].setAttribute('id', 'selected');
   });
 
-  function handleLeftImage() {
-    const images = document.querySelectorAll("#slider img"),
-      max = images.length;
+  function handleChangeImage(target: any) {
+    const image = document.querySelector('#slider img#selected');
 
-    images[currentImageIndex].removeAttribute("id");
+    image.src = target.src;
 
-    currentImageIndex--;
-
-    if (currentImageIndex < 0) currentImageIndex = max - 1;
-
-    images[currentImageIndex].setAttribute("id", "selected");
-  }
-
-  function handleRightImage() {
-    const images = document.querySelectorAll("#slider img"),
-      max = images.length;
-
-    images[currentImageIndex].removeAttribute("id");
-
-    currentImageIndex++;
-
-    if (currentImageIndex >= max) currentImageIndex = 0;
-
-    images[currentImageIndex].setAttribute("id", "selected");
+    target.setAttribute('id', 'selected');
   }
 
   return (
@@ -56,41 +43,48 @@ const ItemPage: React.FC = ({
 
       <Header />
 
-      <main className={styles.container}>
-        <div className={styles.banner_container}>
-          <div id="slider" className={styles.slider}>
-            {item.images.map((image: IImage) => {
-              return <img key={image._id} src={image.url} />;
-            })}
+      <GlobalContainer>
+        <Container>
+          <div>
+            <BannerSlider id="slider">
+              {item.images.map((image: IImage) => {
+                return <img key={image._id} src={image.url} />;
+              })}
+            </BannerSlider>
+
+            <BannerPreview>
+              {item.images.map((image: IImage) => (
+                <li
+                  key={image._id}
+                  onClick={(e) => handleChangeImage(e.target)}
+                >
+                  <img src={image.url} />
+                </li>
+              ))}
+            </BannerPreview>
           </div>
 
-          {item.images.length > 1 && (
-            <div className={styles.button_group}>
-              <button onClick={handleLeftImage}>
-                <FiChevronLeft size={28} color="green" />
-              </button>
+          <Description>
+            <h2>{item.title}</h2>
+            <p>{item.description}</p>
 
-              <button onClick={handleRightImage}>
-                <FiChevronRight size={28} color="green" />
-              </button>
-            </div>
-          )}
-        </div>
+            <Links>
+              <a href={`https://wa.me/+5531995877646`}>
+                <Image src="/whatsapp.svg" width={30} height={30} />
+                Whatsapp
+              </a>
 
-        <div className={styles.description}>
-          <h2>{item.title}</h2>
-          <p className={styles.describe}>{item.description}</p>
-
-          <a
-            target="_blank"
-            className={styles.whats}
-            href={`https://wa.me/+5531995877646`}
-          >
-            <FaWhatsapp size={24} color="green" className={styles.icons} />
-            Whatsapp
-          </a>
-        </div>
-      </main>
+              <a
+                href="https://www.instagram.com/bvmoveis_rusticos/"
+                target="_blank"
+              >
+                <Image src="/instagram.svg" width={30} height={30} />
+                Acesse o instagram
+              </a>
+            </Links>
+          </Description>
+        </Container>
+      </GlobalContainer>
     </>
   );
 };
