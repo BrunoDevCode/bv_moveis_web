@@ -11,7 +11,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <Component {...pageProps} />
 
-      {/* Diminuir font do footer  */}
       <footer>
         <p>
           Todos os direitos reservados &copy; Copyright{' '}
