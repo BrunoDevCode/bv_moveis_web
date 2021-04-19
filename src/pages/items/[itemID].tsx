@@ -18,7 +18,7 @@ import {
 import { GlobalContainer } from '../../styles/global';
 
 interface IImageElement extends Element {
-  src: string;
+  src?: string;
 }
 
 const ItemPage: React.FC = ({
