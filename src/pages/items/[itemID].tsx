@@ -17,6 +17,10 @@ import {
 } from '../../styles/singleItem';
 import { GlobalContainer } from '../../styles/global';
 
+interface IImageElement extends Element {
+  src: string;
+}
+
 const ItemPage: React.FC = ({
   item,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -26,7 +30,9 @@ const ItemPage: React.FC = ({
   });
 
   function handleChangeImage(target: any) {
-    const image = document.querySelector('#slider img#selected');
+    const image: IImageElement = document.querySelector(
+      '#slider img#selected'
+    )!;
 
     image!.src = target.src;
 
