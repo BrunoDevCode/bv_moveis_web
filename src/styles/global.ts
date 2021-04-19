@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import 'react-circular-progressbar/dist/styles.css';
 
 export const GlobalContainer = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 400px;
   margin: 0 auto;
 
@@ -76,6 +76,7 @@ export const GlobalStyle = createGlobalStyle`
   button {
     background: none;
     color: inherit;
+    cursor: pointer;
   }
 
   a {
