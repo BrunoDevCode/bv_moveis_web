@@ -32,16 +32,12 @@ const Login: React.FC = () => {
           if (progress !== event.total) {
             setLoginState(true);
           }
-
-          setLoginState(false);
         },
       })
       .then(async ({ data: { token } }) => {
+        setLoginState(false);
         Cookie.set('@token', token);
         router.push('/admin/launchpage', undefined, { shallow: true });
-      })
-      .catch((error) => {
-        console.log(error.response.data);
       });
   }
 
