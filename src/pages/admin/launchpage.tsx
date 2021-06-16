@@ -3,12 +3,13 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Item } from '../../components/Item';
-import { MdPowerSettingsNew } from 'react-icons/md';
 import Cookie from 'js-cookie';
 
 import { api } from '../../services/api';
 
-import styles from '../../styles/launchpage.module.css';
+import { AdminContainer, AdminItem, AdminListContainer, AdminHeader } from '../../styles/back-office';
+import { FiLogOut } from 'react-icons/fi';
+
 
 const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
@@ -23,40 +24,37 @@ const Launchpage: React.FC = ({ items }: InferGetServerSidePropsType<typeof getS
       <Head>
         <meta name='robots' content='no' />
       </Head>
-      <header className={styles.header}>
+      <AdminHeader>
         <Link href="/admin/new-item">
           <a>Criar novo produto</a>
         </Link>
-        <button
-          className={styles.button_loggof}
-          onClick={handleMakeLoggof}
-        >
-          <MdPowerSettingsNew size={24} color='#E57878' />
+        <button onClick={handleMakeLoggof}>
+          <FiLogOut size={24} color='#E57878' />
         </button>
-      </header>
+      </AdminHeader>
 
-      <div className={styles.container}>
-        <ul className={styles.item_container}>
+      <AdminContainer>
+        <AdminListContainer>
           {items.map((item: Item) => (
-            <li className={styles.item} key={item._id}>
-              <div className={styles.item_image}>
-                <img src={item.images![0] ? item.images![0].url : '/noImage.jpg'} alt="" />
-              </div>
+            <Link key={item._id} href={`/admin/${item._id}`}>
+              <a>
+                <AdminItem>
 
-              <div className={styles.item_content}>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
+                  <h3>{item.title}</h3>
 
-              <div className={styles.buttons}>
-                <Link href={`/admin/${item._id}`}>
-                  <a>Modificar</a>
-                </Link>
-              </div>
-            </li>
+                  <div>
+                    <img
+                      src={item.images![0] ? item.images![0].url : '//placehold.it/350x280?text=Produto sem imagem'}
+                      alt="" />
+                  </div>
+
+
+                </AdminItem>
+              </a>
+            </Link>
           ))}
-        </ul>
-      </div>
+        </AdminListContainer>
+      </AdminContainer>
     </>
   );
 }

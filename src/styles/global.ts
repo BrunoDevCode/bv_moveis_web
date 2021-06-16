@@ -50,20 +50,32 @@ export const GlobalStyle = createGlobalStyle`
 
   footer {
     margin-top: auto;
-    padding: 32px 0;
+    padding: 8px 0;
     background-color: var(--back-footer);
     width: 100%;
     display: grid;
     gap: 12px;
     place-items: center;
-    height: 70px;
+    height: 40px;
   }
 
   footer p {
     color: white;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 10px;
     line-height: 26px;
+  }
+
+  @media(min-width: 768px) {
+    footer {
+      padding: 32px 0;
+      height: 70px;
+    }
+
+    footer p {
+      font-size: 16px;
+      line-height: 26px;
+    }
   }
 
   body,
